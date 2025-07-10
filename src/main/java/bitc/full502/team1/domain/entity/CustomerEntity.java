@@ -15,12 +15,11 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class CustomerEntity {
 
-    //    private int CustomerIdx;
-//    @Column(unique=true)
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Customeridx;
+    private int CustomerIdx;
     @Column(name = "user_id")
     private String CustomerId;
     @Column(name = "pass", length = 500)

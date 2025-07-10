@@ -24,6 +24,12 @@ public class JoInController {
         this.joinService = joinService;
     }
 
+    @GetMapping("/index")
+    public ModelAndView index() {
+        ModelAndView mv = new ModelAndView("/index");
+        return mv;
+    }
+
     @GetMapping("/join")
     public ModelAndView join() throws  Exception {
         ModelAndView mv = new ModelAndView("/join");
@@ -32,6 +38,7 @@ public class JoInController {
 
     @RequestMapping("/joinProcess")//join 페이지 form action 부분, 공란이라서 공란 처리 했음
     public String JoinProcess(@ModelAttribute CustomerDTO cdto) throws  Exception {
+
         joinService.joinUser(cdto);
         return "redirect:/index"; // 메인으로 이동 , 페이지 나중에 적어야됨
     }
