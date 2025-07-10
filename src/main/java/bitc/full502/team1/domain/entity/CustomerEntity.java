@@ -1,10 +1,7 @@
 package bitc.full502.team1.domain.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +19,7 @@ public class CustomerEntity {
 //    @Column(unique=true)
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Customeridx;
     @Column(name = "user_id")
     private String CustomerId;
