@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="css/style.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="js/script.js"></script>
+
+  <style>
+      .center_box {max-width: 360px; width: 100%; margin: 40px auto;}
+      .login_title {margin-bottom: 20px;}
+      .join_box {margin-top: 15px;}
+      .join_box > p {margin-bottom: 5px;}
+      .join_box .join_input {display: flex; justify-content: space-between; align-items: center;}
+      .join_box .join_input input {width: 100%; height: 35px; padding: 0 10px;}
+      .join_box .join_input.flex_input input {width: 75%;}
+      .email_input {display: flex; justify-content: space-between; align-items: center;}
+      .email_input input {width: 160px; height: 35px; padding: 0 10px;}
+      .email_input span {font-size: 20px;}
+      .email_input select {width: 160px; height: 35px; padding: 0 10px;}
+      .join_box .join_input button {display: flex; justify-content: center; align-items: center; width: 80px; height: 35px; border-radius: 5px; background-color: #000; color: #fff; border: none;}
+      .rep {margin-top: 10px;}
+      .rep p:first-child {color: red;}
+      .rep p:last-child {color: green;}
+      .pw_chk {margin-top: 10px;}
+      .pw_chk p:first-child {color: red;}
+      .pw_chk p:last-child {color: green;}
+      .s_btn {display: flex; justify-content: center; align-items: center; width: 80px; height: 35px; border-radius: 5px; background-color: #000; color: #fff; border: none; margin: 30px auto;}
+  </style>
+
+  <script>
+    $(document).ready(function () {
+
+      $('.inc_pw').hide();
+      $('.co_pw').hide();
+
+      $('.ori_pw, .chk_pw').on('keyup', function () {
+        const pw = $('.ori_pw').val();
+        const pwChk = $('.chk_pw').val();
+
+        if (pw === '' || pwChk === '') {
+          $('.inc_pw').hide();
+          $('.co_pw').hide();
+        } else if (pw === pwChk) {
+          $('.co_pw').show();
+          $('.inc_pw').hide();
+        } else {
+          $('.co_pw').hide();
+          $('.inc_pw').show();
+        }
+      });
+
+
+      $('form').on('submit', function (e) {
+        const emailDomain = $('.mail_select').val();
+        const isPwMatchVisible = $('.co_pw').is(':visible');
+
+        if (emailDomain === '') {
+          alert('이메일 주소를 선택해주세요');
+          e.preventDefault();
+          return false;
+        }
+
+        if (!isPwMatchVisible) {
+          alert('비밀번호가 일치하지 않습니다. \n비밀번호를 다시 확인하신 후 회원가입 버튼을 눌러주세요.');
+          e.preventDefault();
+          return false;
+        }
+      });
+
+
+
+
+      let isIdChecked = false;
+
+      $('.inc_id').hide();
+      $('.co_id').hide();
+
+      $('.chk_id_btn').on('click', function () {
+        const inputId = $('.chk_id').val().trim();
+
+        if (inputId === '') {
+          alert('아이디를 입력해주세요!');
+          $('.inc_id').hide();
+          $('.co_id').hide();
+          isIdChecked = false;
+          return;
+        }
+
+        const usedIds = ['admin', 'test', 'user1']; // 여기에 유저 아이디 데이터 넣어서 해야할 거 같음
+
+        if (usedIds.includes(inputId)) {
+          $('.inc_id').show();
+          $('.co_id').hide();
+          isIdChecked = false;
+        } else {
+          $('.inc_id').hide();
+          $('.co_id').show();
+          isIdChecked = true;
+        }
+      });
+
+      $('.chk_id').on('input', function () {
+        isIdChecked = false;
+        $('.inc_id').hide();
+        $('.co_id').hide();
+      });
+
+      $('form').on('submit', function (e) {
+        if (!isIdChecked) {
+          alert('아이디 중복확인을 해주세요!');
+          e.preventDefault();
+          return false;
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+<div class="center_box">
+  <h2 class="my_title">회원가입</h2>
+  <form action="" method="post">
+    <div class="join_box">
+      <p>Name</p>
+      <div class="join_input">
+        <input type="text" name="" value="" placeholder="Your Name" required>
+      </div>
+    </div>
+    <div class="join_box">
+      <p>ID</p>
+      <div class="join_input flex_input">
+        <input type="text" name="" value="" placeholder="ID" class="chk_id" required>
+        <button type="button" class="chk_id_btn">중복확인</button>
+      </div>
+      <div class="rep">
+        <p class="inc_id">이미 등록된 ID 입니다.</p>
+        <p class="co_id">사용 가능한 ID 입니다.</p>
+      </div>
+    </div>
+    <div class="join_box">
+      <p>Password</p>
+      <div class="join_input">
+        <input type="password" name="" value="" placeholder="Password" class="ori_pw" required>
+      </div>
+    </div>
+    <div class="join_box">
+      <p>Password Check</p>
+      <div class="join_input">
+        <input type="password" name="" value="" placeholder="Password Check" class="chk_pw" required>
+      </div>
+      <div class="pw_chk">
+        <p class="inc_pw">비밀번호가 일치하지 않습니다.</p>
+        <p class="co_pw">비밀번호가 일치합니다.</p>
+      </div>
+    </div>
+    <div class="join_box">
+      <p>E-mail</p>
+      <div class="email_input">
+        <input type="text" name="" value="" placeholder="E-mail" required>
+        <span>@</span>
+        <select class="mail_select">
+          <option value="">Choose E-mail</option>
+          <option value="naver.com">naver.com</option>
+          <option value="gmail.com">gmail.com</option>
+          <option value="daum.net">daum.net</option>
+        </select>
+      </div>
+    </div>
+    <div class="join_box">
+      <p>Address</p>
+      <div class="join_input">
+        <input type="text" name="" value="" placeholder="배송지 입력" required>
+      </div>
+    </div>
+    <div class="join_box">
+      <p>Phone</p>
+      <div class="join_input">
+        <input type="tel" name="" value="" placeholder="Phone Number" required>
+      </div>
+    </div>
+    <button type="submit" class="s_btn">회원가입</button>
+  </form>
+</div>
+</body>
+</html>
