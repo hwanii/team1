@@ -32,7 +32,7 @@ public class ProductEntity {
     @Column(name = "p_brand")
     private String ProductBrand;
 
-    @Column(name = "p_thumnail")
+    @Column(name = "p_thumbnail")
     private String ProductThumnail;
 
     @Column(name = "p_color")
