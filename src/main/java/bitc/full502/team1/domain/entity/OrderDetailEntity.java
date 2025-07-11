@@ -36,8 +36,4 @@ public class OrderDetailEntity {
 
     @Column(name = "order_size")
     private String OrderDetailSize;
-
-    @ManyToOne
-    @JoinColumn(name = "order_idx_detail")
-    private OrderEntity order;
 }

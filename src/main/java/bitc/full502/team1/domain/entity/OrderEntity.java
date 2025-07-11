@@ -42,7 +42,4 @@ public class OrderEntity {
     @Column(name = "res_price")
     private Integer OrderResPrice;
 
-    @ManyToOne
-    @JoinColumn(name = "c_id_order")
-    private CustomerEntity customer;
 }
