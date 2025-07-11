@@ -1,18 +1,355 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Title</title>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-          integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-          crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <style>
+        * {
+            color: #FFFFFF;
+        }
+
+        .menu-close,
+        .cate-close,
+        .brand-close {
+            text-align: right;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: rgb(255, 255, 255);
+        }
+
+        #mobile-menu-icon,
+        .search {
+            cursor: pointer;
+        }
+
+        #category,
+        #brandbar {
+            text-align: right;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: rgb(255, 255, 255);
+        }
+
+        #searchMenu {
+            display: none;
+            position: fixed;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            z-index: 2000;
+            transition: 0.3s ease;
+        }
+
+        #searchMenu.open {
+            display: block;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 350px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            z-index: 2000;
+            transition: 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 1rem 0;
+            color: rgb(255, 255, 255);
+        }
+
+        .card {
+            color: #ffffff;
+            background-color: #F37021;
+            text-align: center;
+        }
+
+        .search-container input {
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+            width: 80%;
+            margin-left: auto;
+        }
+    </style>
+
+    <script>
+
+        function toggleMenu() {
+            const menu = document.getElementById("mobileMenu");
+            menu.classList.toggle("open");
+        }
+
+        function toggleSearch() {
+            const search = document.getElementById("searchMenu");
+            search.classList.toggle("open");
+        }
+
+        function filterProducts() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const products = document.querySelectorAll(".product");
+
+            products.forEach(product => {
+                const text = product.textContent.toLowerCase();
+                product.style.display = text.includes(input) ? "flex" : "none";
+            });
+        }
+
+    </script>
+
 </head>
+
 <body>
 
+    <!-- faq 시작 -->
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="position: fixed; bottom: 30px; right: 30px;">
+        FAQ
+    </button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content" style="background-color: #000; opacity: 80%;">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h2 class="fs-5">Popover in a modal</h2>
+                    <p class="d-inline-flex gap-1">This <button class="btn btn-secondary" data-bs-toggle="collapse"
+                            type="button" data-bs-target="#collapseExample" aria-expanded="false"
+                            aria-controls="collapseExample" title="Popover title"
+                            data-bs-content="Popover body content is set in this attribute.">button</button> triggers a
+                        popover on click.</p>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            Some placeholder content for the collapse component. This panel is hidden by default but
+                            revealed when the user activates the relevant trigger.
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="modal-body">
+                    <h2 class="fs-5">Popover in a modal</h2>
+                    <p class="d-inline-flex gap-1">This <button class="btn btn-secondary" data-bs-toggle="collapse"
+                            type="button" data-bs-target="#collapseExample2" aria-expanded="false"
+                            aria-controls="collapseExample2" title="Popover title"
+                            data-bs-content="Popover body content is set in this attribute.">button</button> triggers a
+                        popover on click.</p>
+                    <div class="collapse" id="collapseExample2">
+                        <div class="card card-body">
+                            Some placeholder content for the collapse component. This panel is hidden by default but
+                            revealed when the user activates the relevant trigger.
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="modal-body">
+                    <h2 class="fs-5">Popover in a modal</h2>
+                    <p class="d-inline-flex gap-1">This <button class="btn btn-secondary" data-bs-toggle="collapse"
+                            type="button" data-bs-target="#collapseExample3" aria-expanded="false"
+                            aria-controls="collapseExample3" title="Popover title"
+                            data-bs-content="Popover body content is set in this attribute.">button</button> triggers a
+                        popover on click.</p>
+                    <div class="collapse" id="collapseExample3">
+                        <div class="card card-body">
+                            Some placeholder content for the collapse component. This panel is hidden by default but
+                            revealed when the user activates the relevant trigger.
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="modal-body">
+                    <h2 class="fs-5">Popover in a modal</h2>
+                    <p class="d-inline-flex gap-1">This <button class="btn btn-secondary" data-bs-toggle="collapse"
+                            type="button" data-bs-target="#collapseExample4" aria-expanded="false"
+                            aria-controls="collapseExample4" title="Popover title"
+                            data-bs-content="Popover body content is set in this attribute.">button</button> triggers a
+                        popover on click.</p>
+                    <div class="collapse" id="collapseExample4">
+                        <div class="card card-body">
+                            Some placeholder content for the collapse component. This panel is hidden by default but
+                            revealed when the user activates the relevant trigger.
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- faq 끝 -->
+
+    <!-- background 시작-->
+    <img src="image/picture/bg.jpg" alt=" "
+        style="position: fixed; top: 0; left: 0; min-width: 100%; min-height: 100%; object-fit: cover; z-index: -2;">
+
+    <div
+        style="position: fixed; top: 0; left: 0; min-width: 100%; min-height: 100%; object-fit: cover; z-index: -1; background: #000; opacity: 50%;">
+    </div>
+    <!-- background 끝-->
+
+    <!-- header 시작 -->
+    <nav class="navbar sticky-top" th:fragment="headerNavbar">
+        <div class="container-fluid">
+            <div style="display: flex; flex-direction: row;">
+                <div class="navbar-brand">
+                    <img src="image/svg/list.svg" width="35" height="35" class="d-inline-block" alt=""
+                        onclick="toggleMenu()" id="mobile-menu-icon">
+                </div>
+                <a href="index.html" class="navbar-brand">
+                    <img src="image/picture/logo.png" height="35" class="d-inline-block" alt="">
+                </a>
+            </div>
+            <div style="display: flex; flex-direction: row;">
+                <a href="boardList.html" class="navbar-brand">
+                    <img src="image/picture/lookbook.png" width="40" height="40" class="d-inline-block pb-1" alt="">
+                </a>
+                <a href="#" class="navbar-brand">
+                    <img src="image/svg/mypage.svg" width="25" height="25" class="d-inline-block" alt="">
+                </a>
+                <a href="#" class="navbar-brand">
+                    <img src="image/svg/cart.svg" width="35" height="35" class="d-inline-block" alt="">
+                </a>
+                <div class="navbar-brand search">
+                    <img src="image/svg/search.svg" width="30" height="30" class="d-inline-block" alt=""
+                        onclick="toggleSearch()" id="search">
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="menu-close" onclick="toggleMenu()"><strong>✕</strong>
+        </div>
+        <ul class="nav nav-tabs gap-3 d-flex justify-content-between">
+            <li class="nav-item">
+                <p class="d-inline-flex gap-1">
+                    <button class="nav-link ms-2 p-3 btn side_menu_btn1" aria-current="page" id="category"
+                        data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                        aria-controls="collapseExample">CATEGORY</button>
+                </p>
+                <div class="collapse mb-4 side_menu_list1" id="collapseExample">
+                    <a href="productList.html" class="card card-body mb-4">ALL</a>
+                    <a href="productList.html" class="card card-body mb-4">OUTER</a>
+                    <a href="productList.html" class="card card-body mb-4">TOP</a>
+                    <a href="productList.html" class="card card-body mb-4">BOTTOM</a>
+                    <a href="productList.html" class="card card-body mb-4">SHOES</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <p class="d-inline-flex gap-1">
+                    <button class="nav-link me-2 p-3 btn side_menu_btn2" aria-current="page" id="brandbar"
+                        data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false"
+                        aria-controls="collapseExample2">BRAND</button>
+                </p>
+                <div class="collapse mb-4 side_menu_list2" id="collapseExample2">
+                    <a href="brand1.html" class="card card-body mb-5">BRAND 1</a>
+                    <a href="brand2.html" class="card card-body mb-5">BRAND 2</a>
+                    <a href="brand3.html" class="card card-body mb-5">BRAND 3</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".side_menu_btn1").on("click", function () {
+                if ($(".side_menu_list2").hasClass("show")) {
+                    $(".side_menu_list2").removeClass("show");
+                }
+            });
+            $(".side_menu_btn2").on("click", function () {
+                if ($(".side_menu_list1").hasClass("show")) {
+                    $(".side_menu_list1").removeClass("show");
+                }
+            });
+        });
+    </script>
+
+    <!-- header 끝 -->
+
+    <div id="searchMenu">
+        <div class="menu-close" onclick="toggleSearch()"><strong>✕</strong>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="search..." onkeyup="filterProducts()" />
+        </div>
+    </div>
+
+    <!--메인화면 슬라이드 들어갈 자리-->
+    <div class="mx-auto" style="width: 85%;">
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="width: 100%;">
+                    <img src="image/picture/bg.jpg" class="d-block" alt="..." style="width: 100%;">
+                </div>
+                <div class="carousel-item" style="width: 100%;">
+                    <img src="image/picture/bg.jpg" class="d-block" alt="..." style="width: 100%;">
+                </div>
+                <div class="carousel-item" style="width: 100%;">
+                    <img src="image/picture/bg.jpg" class="d-block" alt="..." style="width: 100%;">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="container justify-content-center">
+        <br><br><br><br><br><br>
+        <h1>th:replace로 룩북 미리보기 넣기</h1>
+        <br><br><br><br><br><br>
+    </div>
+
+    <footer class="d-flex flex-column p-5 mt-5 justify-content-end" style="height: 300px; background-color: rgba(0, 0, 0, 0.7); text-align: end; backdrop-filter: blur(10px);">
+        <p>footer에 넣을 내용 적기</p>
+        <p>footer에 넣을 내용 적기</p>
+        <p>footer에 넣을 내용 적기 footer에 넣을 내용 적기</p>
+        <p>footer에 넣을 내용 적기</p>
+    </footer>
+
 </body>
+
 </html>

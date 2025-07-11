@@ -89,7 +89,7 @@
           return;
         }
 
-        const usedIds = ['admin', 'test', 'user1']; // 여기에 유저 아이디 데이터 넣어서 해야할 거 같음
+        const usedIds = ['test2', 'test', 'user1']; // 여기에 유저 아이디 데이터 넣어서 해야할 거 같음
 
         if (usedIds.includes(inputId)) {
           $('.inc_id').show();
@@ -121,17 +121,17 @@
 <body>
 <div class="center_box">
   <h2 class="my_title">회원가입</h2>
-  <form action="" method="post">
+  <form action="joinProcess" method="post">
     <div class="join_box">
       <p>Name</p>
       <div class="join_input">
-        <input type="text" name="" value="" placeholder="Your Name" required>
+        <input type="text" name="customerName" value="" placeholder="Your Name" required>
       </div>
     </div>
     <div class="join_box">
       <p>ID</p>
       <div class="join_input flex_input">
-        <input type="text" name="" value="" placeholder="ID" class="chk_id" required>
+        <input type="text" name="customerId" value="" placeholder="ID" class="chk_id" required>
         <button type="button" class="chk_id_btn">중복확인</button>
       </div>
       <div class="rep">
@@ -142,7 +142,7 @@
     <div class="join_box">
       <p>Password</p>
       <div class="join_input">
-        <input type="password" name="" value="" placeholder="Password" class="ori_pw" required>
+        <input type="password" name="customerPass" value="" placeholder="Password" class="ori_pw" required>
       </div>
     </div>
     <div class="join_box">
@@ -158,7 +158,7 @@
     <div class="join_box">
       <p>E-mail</p>
       <div class="email_input">
-        <input type="text" name="" value="" placeholder="E-mail" required>
+        <input type="text" name="customerEmail" value="" placeholder="E-mail" required>
         <span>@</span>
         <select class="mail_select">
           <option value="">Choose E-mail</option>
@@ -171,13 +171,13 @@
     <div class="join_box">
       <p>Address</p>
       <div class="join_input">
-        <input type="text" name="" value="" placeholder="배송지 입력" required>
+        <input type="text" name="customerAddr" value="" placeholder="배송지 입력" required>
       </div>
     </div>
     <div class="join_box">
       <p>Phone</p>
       <div class="join_input">
-        <input type="tel" name="" value="" placeholder="Phone Number" required>
+        <input type="tel" name="customerPhone" value="" placeholder="Phone Number" required>
       </div>
     </div>
     <button type="submit" class="s_btn">회원가입</button>
