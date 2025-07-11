@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>brand2</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<style>
+
+        * {
+      color: #FFFFFF;
+    }
+    
+        .menu-close,
+        .cate-close,
+        .brand-close {
+            text-align: right;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: rgb(255, 255, 255);
+        }
+
+        #mobile-menu-icon,
+        .search {
+            cursor: pointer;
+        }
+
+        #category,
+        #brandbar {
+            text-align: right;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: rgb(255, 255, 255);
+        }
+
+        #searchMenu {
+            display: none;
+            position: fixed;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            z-index: 2000;
+            transition: 0.3s ease;
+        }
+
+        #searchMenu.open {
+            display: block;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 350px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            z-index: 2000;
+            transition: 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgb(255, 255, 255);
+            color: rgb(255, 255, 255);
+        }
+
+        .card {
+            color: #ffffff;
+            background-color: #000;
+            text-align: center;
+        }
+
+        .search-container input {
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+            width: 80%;
+            margin-left: auto;
+        }
+    </style>
+
+    <script>
+
+        function toggleMenu() {
+            const menu = document.getElementById("mobileMenu");
+            menu.classList.toggle("open");
+        }
+
+        function toggleSearch() {
+            const search = document.getElementById("searchMenu");
+            search.classList.toggle("open");
+        }
+
+        function filterProducts() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const products = document.querySelectorAll(".product");
+
+            products.forEach(product => {
+                const text = product.textContent.toLowerCase();
+                product.style.display = text.includes(input) ? "flex" : "none";
+            });
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+    <img src="image/picture/bg.jpg" alt=" "
+        style="position: fixed; top: 0; left: 0; min-width: 100%; min-height: 100%; object-fit: cover; z-index: -2;">
+
+    <div
+        style="position: fixed; top: 0; left: 0; min-width: 100%; min-height: 100%; object-fit: cover; z-index: -1; background: #000; opacity: 50%;">
+    </div>
+
+    <nav class="navbar sticky-top" th:fragment="headerNavbar">
+        <div class="container-fluid">
+            <div style="display: flex; flex-direction: row;">
+                <div class="navbar-brand">
+                    <img src="image/svg/list.svg" width="35" height="35" class="d-inline-block" alt=""
+                        onclick="toggleMenu()" id="mobile-menu-icon">
+                </div>
+                <a href="index.html" class="navbar-brand">
+                    <img src="image/picture/logo.png" height="35" class="d-inline-block" alt="">
+                </a>
+            </div>
+            <div style="display: flex; flex-direction: row;">
+                <a href="boardList.html" class="navbar-brand">
+                    <img src="image/picture/lookbook.png" width="40" height="40" class="d-inline-block pb-1" alt="">
+                </a>
+                <a href="#" class="navbar-brand">
+                    <img src="image/svg/mypage.svg" width="25" height="25" class="d-inline-block" alt="">
+                </a>
+                <a href="#" class="navbar-brand">
+                    <img src="image/svg/cart.svg" width="35" height="35" class="d-inline-block" alt="">
+                </a>
+                <div class="navbar-brand search">
+                    <img src="image/svg/search.svg" width="30" height="30" class="d-inline-block" alt=""
+                        onclick="toggleSearch()" id="search">
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="menu-close" onclick="toggleMenu()"><strong>✕</strong>
+        </div>
+        <ul class="nav nav-tabs gap-3 d-flex justify-content-between">
+            <li class="nav-item">
+                <p class="d-inline-flex gap-1">
+                    <button class="nav-link ms-2 p-3 btn" aria-current="page" id="category" data-bs-toggle="collapse"
+                        data-bs-target="#collapseExample" aria-expanded="false"
+                        aria-controls="collapseExample">CATEGORY</button>
+                </p>
+                <div class="collapse mb-4" id="collapseExample">
+                    <div class="card card-body mb-4">ALL</div>
+                    <div class="card card-body mb-4">OUTER</div>
+                    <div class="card card-body mb-4">TOP</div>
+                    <div class="card card-body mb-4">BOTTOM</div>
+                    <div class="card card-body">SHOES</div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <p class="d-inline-flex gap-1">
+                    <button class="nav-link me-2 p-3 btn" aria-current="page" id="brandbar" data-bs-toggle="collapse"
+                        data-bs-target="#collapseExample2" aria-expanded="false"
+                        aria-controls="collapseExample2">BRAND</button>
+                </p>
+                <div class="collapse mb-4" id="collapseExample2">
+                    <div class="card card-body mb-5">BRAND 1</div>
+                    <div class="card card-body mb-5">BRAND 2</div>
+                    <div class="card card-body mb-5">BRAND 3</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div id="searchMenu">
+        <div class="menu-close" onclick="toggleSearch()"><strong>✕</strong>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="search..." onkeyup="filterProducts()" />
+        </div>
+    </div>
+
+    <div class="d-flex" style="width: 70%; height: 100%; background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(3px); margin-left: auto; margin-right: auto; padding: 20px; border-radius: 30px;">
+        <colgroup>
+            <img src="" alt="">
+            <img src="" alt="">
+            <img src="" alt="">
+            <img src="" alt="">
+            <img src="" alt="">
+            <br><br><br><br><br><br><br><br><br><br>
+        </colgroup>
+    </div>
+
+</body>
+</html>
+    
+    
